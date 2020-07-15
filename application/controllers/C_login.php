@@ -31,7 +31,6 @@ class C_login extends CI_Controller {
                     'level'     => $apps->level
                 );
                 $this->session->set_userdata($session_data);
-
                 if($this->session->userdata("level") == "admin"){
                     $this->load->view('admin/home');
                 }
