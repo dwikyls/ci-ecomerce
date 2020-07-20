@@ -12,9 +12,10 @@ class M_login extends CI_Model{
         $this->db->where($field2);
         $this->db->limit(1);
         $query = $this->db->get();
-        if ($query->num_rows() == 0) {
+        if ($query->num_rows() == 0){
             return FALSE;
-        } else {
+        }
+        else{
             return $query->result();
         }
     }

@@ -2,16 +2,13 @@
 if (!defined('BASEPATH')) exit('No direct script access allowed');
 
 class Shopping extends CI_Controller {
-
-	public function __construct()
-	{	
+	public function __construct(){	
 		parent::__construct();
 		$this->load->library('cart');
 		$this->load->model('keranjang_model');
 	}
 
-	public function index()
-	{
+	public function index(){
 		$kategori=($this->uri->segment(3))?$this->uri->segment(3):0;
 		$data['produk'] = $this->keranjang_model->get_produk_kategori($kategori);
 		$data['kategori'] = $this->keranjang_model->get_kategori_all();
@@ -19,24 +16,21 @@ class Shopping extends CI_Controller {
 		$this->load->view('shopping/list_produk',$data);
 		$this->load->view('themes/footer');
 	}
-	public function tampil_cart()
-	{
+	public function tampil_cart(){
 		$data['kategori'] = $this->keranjang_model->get_kategori_all();
 		$this->load->view('themes/header',$data);
 		$this->load->view('shopping/tampil_cart',$data);
 		$this->load->view('themes/footer');
 	}
 	
-	public function check_out()
-	{
+	public function check_out(){
 		$data['kategori'] = $this->keranjang_model->get_kategori_all();
 		$this->load->view('themes/header',$data);
 		$this->load->view('shopping/check_out',$data);
 		$this->load->view('themes/footer');
 	}
 	
-	public function detail_produk()
-	{
+	public function detail_produk(){
 		$id=($this->uri->segment(3))?$this->uri->segment(3):0;
 		$data['kategori'] = $this->keranjang_model->get_kategori_all();
 		$data['detail'] = $this->keranjang_model->get_produk_id($id)->row_array();
@@ -46,26 +40,22 @@ class Shopping extends CI_Controller {
 	}
 	
 	
-	function tambah()
-	{
+	function tambah(){
 		$data_produk= array('id' => $this->input->post('id'),
-							 'name' => $this->input->post('nama'),
-							 'price' => $this->input->post('harga'),
-							 'gambar' => $this->input->post('gambar'),
-							 'qty' =>$this->input->post('qty')
+							'name' => $this->input->post('nama'),
+							'price' => $this->input->post('harga'),
+							'gambar' => $this->input->post('gambar'),
+							'qty' =>$this->input->post('qty')
 							);
 		$this->cart->insert($data_produk);
 		redirect('shopping');
 	}
 
-	function hapus($rowid) 
-	{
-		if ($rowid=="all")
-			{
+	function hapus($rowid){
+		if ($rowid=="all"){
 				$this->cart->destroy();
 			}
-		else
-			{
+		else{
 				$data = array('rowid' => $rowid,
 			  				  'qty' =>0);
 				$this->cart->update($data);
@@ -73,11 +63,9 @@ class Shopping extends CI_Controller {
 		redirect('shopping/tampil_cart');
 	}
 
-	function ubah_cart()
-	{
+	function ubah_cart(){
 		$cart_info = $_POST['cart'] ;
-		foreach( $cart_info as $id => $cart)
-		{
+		foreach( $cart_info as $id => $cart){
 			$rowid = $cart['rowid'];
 			$price = $cart['price'];
 			$gambar = $cart['gambar'];
@@ -95,8 +83,8 @@ class Shopping extends CI_Controller {
 
 	public function proses_order(){
 		$data_pelanggan = array('nama' => $this->input->post('nama'),
-							'email' => $this->input->post('email'),
-							'alamat' => $this->input->post('alamat'));
+								'email' => $this->input->post('email'),
+								'alamat' => $this->input->post('alamat'));
 		$id_pelanggan = $this->keranjang_model->tambah_pelanggan($data_pelanggan);
 		$data_order = array('tanggal' => date('Y-m-d'),
 					   		'pelanggan' => $id_pelanggan);
@@ -104,10 +92,10 @@ class Shopping extends CI_Controller {
 		if ($cart = $this->cart->contents()){
 				foreach ($cart as $item){
 						$data_detail = array('order_id' =>$id_order,
-										'produk' => $item['id'],
-										'qty' => $item['qty'],
-										'harga' => $item['price'],
-										'status' => $this->input->post('status'));			
+											'produk' => $item['id'],
+											'qty' => $item['qty'],
+											'harga' => $item['price'],
+											'status' => $this->input->post('status'));			
 						$proses = $this->keranjang_model->tambah_detail_order($data_detail);
 					}
 			}
