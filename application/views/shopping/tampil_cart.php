@@ -33,7 +33,7 @@ $grand_total = $grand_total + $item['subtotal'];
 <td><img class="img-responsive" src="<?php echo base_url() . 'assets/images/'.$item['gambar']; ?>"/></td>
 <td><?php echo $item['name']; ?></td>
 <td><?php echo number_format($item['price'], 0,",","."); ?></td>
-<td><input type="text" name="cart[<?php echo $item['id'];?>][qty]" value="<?php echo $item['qty'];?>" /></td>
+<td><?php echo $item['qty']; ?></td>
 <td><?php echo number_format($item['subtotal'], 0,",",".") ?></td>
 <td><a href="<?php echo base_url()?>shopping/hapus/<?php echo $item['rowid'];?>">Hapus<a></td>
 <?php endforeach; ?>

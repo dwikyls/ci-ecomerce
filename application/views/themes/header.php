@@ -25,7 +25,7 @@
           <ul class="nav navbar-nav navbar-right">
             <li><a href="http://localhost/toko/index.php/C_login/index">Edit Profile</a></li>
             <li><a href="http://localhost/toko/index.php/C_login/history">History</a></li>
-            <li class="active"><a href="<?php echo base_url()?>">Beli</a></li>
+            <li class="active"><a href="<?= base_url()?>index.php/Page/index">Beli</a></li>
             <li><a href="<?php echo base_url()?>shopping/tampil_cart"> Keranjang Belanja</a></li>
             <li><a href="<?php echo base_url()?>index.php/C_login/index">LOGOUT</a></li>
           </ul>
